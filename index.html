@@ -51,11 +51,11 @@
     <h1>Happy Sweet Ninetyy... EHHH Nineteen!!!!! 🎉</h1>
     
     <div class="container">
-        <video id="videoPlayer" autoplay loop muted>
+        <video id="videoPlayer" loop muted>
             <source src="vid.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <button id="playButton">Play Music 🎵</button>
+        <button id="playButton">Play Music and Video🎵</button>
     </div>
     
     <audio id="backgroundMusic" loop>
@@ -66,8 +66,27 @@
     <script>
         document.getElementById("playButton").addEventListener("click", function() {
             const music = document.getElementById("backgroundMusic");
-            music.play();
+            const video = document.getElementById("videoPlayer");
+
+            // Play video & audio setelah tombol ditekan
+            video.muted = false; // Unmute video
+            video.play().catch(error => console.log("Video autoplay gagal: ", error));
+            music.play().catch(error => console.log("Audio autoplay gagal: ", error));
+
             this.style.display = "none"; // Sembunyikan tombol setelah ditekan
+        });
+
+        // Backup: Jika user tap layar, coba putar video & musik lagi
+        document.addEventListener("click", function() {
+            const music = document.getElementById("backgroundMusic");
+            const video = document.getElementById("videoPlayer");
+
+            if (music.paused) {
+                music.play();
+            }
+            if (video.paused) {
+                video.play();
+            }
         });
     </script>
 </body>
